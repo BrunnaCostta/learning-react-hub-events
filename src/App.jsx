@@ -17,7 +17,7 @@ function App() {
     { id: 6, nome: "Cloud" },
   ];
 
-  const event = [
+  const [event, setEvent] = useState([
     {
       image:
         "https://raw.githubusercontent.com/viniciosneves/tecboard-assets/refs/heads/main/imagem_1.png",
@@ -25,7 +25,15 @@ function App() {
       date: new Date(),
       title: "Mulheres no front",
     },
-  ];
+  ]);
+
+  function addEvent(evento) {
+    const newEvent = {
+      ...evento,
+      date: new Date(evento.date),
+    };
+    setEvent([...event, newEvent]);
+  }
 
   return (
     <main>
@@ -33,20 +41,36 @@ function App() {
         <p className="text-white text-xl font-serif">TechTeco</p>
       </header>
 
-      <section className="bg-gradient-to-b from-[#17E4B9] to-[#091D24] flex justify-center w-screen ">
+      <section className="bg-gradient-to-b from-[#17E4B9] to-[#091D24] flex justify-center w-screen">
         <img src="banner.png" alt="Banner" />
       </section>
 
       <div className="body pt-12">
-        <FormCourse topic={topic} />
-      </div>
+        <FormCourse topic={topic} aoSubmeter={addEvent} />
 
-      {topic.map((item) => (
-        <section key={item.id} className="body">
-          <Topic topic={item} />
-          <CardEvents event={event[0]} />
+        <section className="container">
+          {topic.map((tema) => {
+            const eventosDoTema = event.filter(
+              (evento) => evento.topic.id === tema.id
+            );
+
+            if (eventosDoTema.length === 0) {
+              return null;
+            }
+
+            return (
+              <section key={tema.id} className="body">
+                <Topic topic={tema} />
+                <div className="eventos ">
+                  {eventosDoTema.map((evento, index) => (
+                    <CardEvents event={evento} key={index} />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </section>
-      ))}
+      </div>
     </main>
   );
 }
