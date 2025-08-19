@@ -42,7 +42,7 @@ function App() {
       </header>
 
       <section className="bg-gradient-to-b from-[#17E4B9] to-[#091D24] flex justify-center w-screen">
-        <img src="banner.png" alt="Banner" />
+        <img src="anner.png" alt="Banner" />
       </section>
 
       <div className="body pt-12">

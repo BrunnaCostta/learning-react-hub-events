@@ -38,6 +38,7 @@
 .container {
     margin: 0 auto;
     max-width: 90%;
+    padding-bottom: 8px;
 }
 
 .eventos {
